@@ -89,6 +89,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adiciona-emprestimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="adiciona-emprestimo.Designer.cs">
+      <DependentUpon>adiciona-emprestimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="adiciona-livros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="adiciona-livros.Designer.cs">
+      <DependentUpon>adiciona-livros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="busca-emprestimos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="busca-emprestimos.Designer.cs">
+      <DependentUpon>busca-emprestimos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="busca-livros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="busca-livros.Designer.cs">
+      <DependentUpon>busca-livros.cs</DependentUpon>
+    </Compile>
     <Compile Include="conexao.cs" />
     <Compile Include="livros-emprestimos.cs">
       <SubType>Form</SubType>
@@ -104,6 +128,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="adiciona-emprestimo.resx">
+      <DependentUpon>adiciona-emprestimo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="adiciona-livros.resx">
+      <DependentUpon>adiciona-livros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="busca-emprestimos.resx">
+      <DependentUpon>busca-emprestimos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="busca-livros.resx">
+      <DependentUpon>busca-livros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="livros-emprestimos.resx">
+      <DependentUpon>livros-emprestimos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="senha.resx">
       <DependentUpon>senha.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,6 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fundo-primeira-tela.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fundo-segunda-tela.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fundo-geral.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

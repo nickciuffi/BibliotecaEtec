@@ -117,23 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="frase-paulo-freire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frase-paulo-freire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo-livro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo-livro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fundo-segunda-tela" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fundo-segunda-tela.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo-livro1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo-livro1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fundo-primeira-tela" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fundo-primeira-tela.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fundo-geral" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fundo-geral.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

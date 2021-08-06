@@ -73,9 +73,29 @@ namespace BibliotecaEtec.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fundo_geral {
+            get {
+                object obj = ResourceManager.GetObject("fundo-geral", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fundo_primeira_tela {
             get {
                 object obj = ResourceManager.GetObject("fundo-primeira-tela", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fundo_segunda_tela {
+            get {
+                object obj = ResourceManager.GetObject("fundo-segunda-tela", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

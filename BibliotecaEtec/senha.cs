@@ -80,8 +80,11 @@ namespace BibliotecaEtec
             }
             if(senha.Text == senha_banco)
             {
-                MessageBox.Show("Senha correta", "Ação",
-            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Hide();
+                livros_emprestimos le = new livros_emprestimos();
+                le.Show();
+
+
             }
             else
             {
