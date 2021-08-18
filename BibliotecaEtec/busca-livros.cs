@@ -218,13 +218,8 @@ namespace BibliotecaEtec
                 DateTime dtReg = DateTime.ParseExact(editDtRegistro.Text.ToString(), "dd/MM/yyyy", null);
                 string strgReg = dtReg.ToString("yyyy-MM-dd");
 
-                if (editDisp.Text != "Disponível" && editDisp.Text != "Indisponível")
-                {
-                    MessageBox.Show("Os únicos valores possíveis para a disponibilidade são: Disponível e Indisponível!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Console.WriteLine("viefvi");
-                }
-                else
-                {
+              
+              
 
                     if (editDisp.Text == "Disponível")
                     {
@@ -236,7 +231,7 @@ namespace BibliotecaEtec
                     }
 
                     conexao comb = new conexao();
-                    comb.sql = "UPDATE Tb01_livros SET tb01_livros.tb01_titulo = '" + editTitulo.Text + "', tb01_data_de_registro = '" + strgReg + "', tb01_editora = '" + editEditora.Text + "', tb01_disponibilidade = '" + disp + "' WHERE tb01_cod_livro = " + linhaEditada;
+                    comb.sql = "UPDATE tb01_livros SET tb01_livros.tb01_titulo = '" + editTitulo.Text + "', tb01_data_de_registro = '" + strgReg + "', tb01_editora = '" + editEditora.Text + "', tb01_disponibilidade = '" + disp + "' WHERE tb01_cod_livro = " + linhaEditada;
 
                     comb.open();
 
@@ -250,7 +245,7 @@ namespace BibliotecaEtec
                     buscaLivros();
 
                 }
-            }
+            
             else if (dialogResult == DialogResult.No)
             {
 

@@ -21,7 +21,7 @@ namespace BibliotecaEtec
         int leitorEditado = 0;
         string codLivroEdit;
         string codLeitorEdit;
-        string varBusca;
+       
         public busca_emprestimos()
         {
             InitializeComponent();
@@ -77,7 +77,7 @@ namespace BibliotecaEtec
             private void buscaEmprestimo(string buscaPor) {
            
             conexao comb = new conexao();
-            comb.sql = "select tb01_livros.tb01_titulo, tb02_emprestimo.tb02_data_de_devolucao_prevista, tb02_emprestimo.tb02_data_de_emprestimo, tb02_emprestimo.tb02_cod_emprestimo, tb02_emprestimo.tb02_cod_emprestimo, tb03_usuario.tb03_nome from tb02_emprestimo inner join tb01_livros on tb02_emprestimo.tb02_cod_livro = tb01_livros.tb01_cod_livro INNER JOIN tb03_usuario ON tb03_usuario.tb03_ru = tb02_emprestimo.tb02_ru where " + buscaPor +" LIKE '%" + txtBusca.Text +  "%'";
+            comb.sql = "select tb01_livros.tb01_titulo, tb02_emprestimo.tb02_data_de_devolucao_prevista, tb02_emprestimo.tb02_data_de_emprestimo, tb02_emprestimo.tb02_cod_emprestimo, tb02_emprestimo.tb02_cod_emprestimo, tb03_usuario.tb03_nome from tb02_emprestimo inner join tb01_livros on tb02_emprestimo.tb02_cod_livro = tb01_livros.tb01_cod_livro INNER JOIN tb03_usuario ON tb03_usuario.tb03_ru = tb02_emprestimo.tb02_ru where " + buscaPor +" LIKE '%" + txtBusca.Text +  "%' and tb02_data_de_devolucao_real is NULL";
 
             comb.open();
 
@@ -96,8 +96,14 @@ namespace BibliotecaEtec
         }
         private void colocaTela(int cod, string titulo, string leitor, string dtEmprestimo, string dtDevolucao)
         {
-
+            
             var index = this.dataGridView1.Rows.Add();
+
+            DateTime dateDevolucao = DateTime.Parse(dtDevolucao);
+            if (DateTime.Now > dateDevolucao)
+            {
+                this.dataGridView1.Rows[index].DefaultCellStyle.ForeColor = Color.Red;
+            }
             this.dataGridView1.Rows[index].Cells[0].Value = cod;
             this.dataGridView1.Rows[index].Cells[1].Value = titulo;
             this.dataGridView1.Rows[index].Cells[2].Value = leitor;
@@ -140,6 +146,7 @@ namespace BibliotecaEtec
                 DialogResult dialogResult = MessageBox.Show("Você tem certeza que quer apagar esta linha?", "Atenção!", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+
                     deletaLinha(empId);
                     MessageBox.Show("Linha excluida!", "Tudo deu certo!",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -174,16 +181,38 @@ namespace BibliotecaEtec
         }
         private void deletaLinha(int empId)
         {
+            LivroPorEmp(empId.ToString());
             conexao comb = new conexao();
-            comb.sql = "delete from tb02_emprestimo where tb02_cod_emprestimo = " + empId;
+            comb.sql = "update tb02_emprestimo set tb02_data_de_devolucao_real = '"+ DateTime.Now.ToString("yyyy-MM-dd") +"' where tb02_cod_emprestimo = " + empId;
 
             comb.open();
 
             MySqlDataReader dados = comb.Execsql();
 
             comb.close();
-
+            dataGridView1.Rows.Clear();
+            buscaPor();
         }
+        private void LivroPorEmp(string EmpCod)
+        {
+            conexao comb = new conexao();
+            comb.sql = "select tb02_cod_livro from tb02_emprestimo where tb02_cod_emprestimo = " + EmpCod;
+
+            comb.open();
+
+            MySqlDataReader dados = comb.Execsql();
+
+            if (dados.HasRows)
+            {
+
+                while (dados.Read())
+                {
+                    adiciona_emprestimo ae = new adiciona_emprestimo();
+                    ae.MudaDisp("D", dados["tb02_cod_livro"].ToString());
+                }
+                comb.close();
+            }
+            }
         private void editarLinha()
         {
             int rowIndex = dataGridView1.CurrentCell.RowIndex;
@@ -212,11 +241,42 @@ namespace BibliotecaEtec
 
         private void button5_Click(object sender, EventArgs e)
         {
+            atualizaDisp(editTitulo.Text);
             editaEmp();
            
             pnEditar.Visible = false;
             panel1.Enabled = true;
-           
+            dataGridView1.Rows.Clear();
+            buscaPor();
+        }
+        private void atualizaDisp(string titulo)
+        {
+            string[] codlivro = editTitulo.Text.Split(':');
+            string codCutted = codlivro[codlivro.Length - 1];
+            conexao comb = new conexao();
+            comb.sql = "SELECT tb01_livros.tb01_titulo, tb01_cod_livro FROM tb02_emprestimo INNER JOIN tb01_livros on tb01_livros.tb01_cod_livro = tb02_emprestimo.tb02_cod_livro WHERE tb02_emprestimo.tb02_cod_emprestimo = " + linhaEditada.ToString();
+           comb.open();
+
+            MySqlDataReader dados = comb.Execsql();
+
+            if (dados.HasRows)
+            {
+
+                while (dados.Read())
+                {
+                    if (dados["tb01_titulo"].ToString() != titulo)
+                    {
+
+                         adiciona_emprestimo add = new adiciona_emprestimo();
+                         add.MudaDisp("D", dados["tb01_cod_livro"].ToString());
+                      
+                        add.MudaDisp("I", codCutted);
+                       
+                    }
+
+                }
+                comb.close();
+            }
         }
         private void editaEmp()
         {
@@ -228,16 +288,23 @@ namespace BibliotecaEtec
                 DateTime dtEmp = DateTime.ParseExact(editDtEmprestimo.Text.ToString(), "dd/MM/yyyy",null);
                 string strgDev = dtDev.ToString("yyyy-MM-dd");
                 string strgEmp = dtEmp.ToString("yyyy-MM-dd");
+                string[] codlivro = editTitulo.Text.Split(':');
                 conexao comb = new conexao();
-                comb.sql = "UPDATE Tb02_emprestimo SET tb02_emprestimo.tb02_data_de_devolucao_prevista = '" + strgDev + "', tb02_emprestimo.tb02_data_de_emprestimo = '" + strgEmp + "', tb02_emprestimo.tb02_cod_livro = '" + codLivroEdit + "', tb02_emprestimo.tb02_ru = '" + codLeitorEdit + "' WHERE tb02_emprestimo.tb02_cod_emprestimo = " + linhaEditada;
-
+                if (int.TryParse(codlivro[codlivro.Length - 1], out _))
+                {
+                    comb.sql = "UPDATE tb02_emprestimo SET tb02_emprestimo.tb02_data_de_devolucao_prevista = '" + strgDev + "', tb02_emprestimo.tb02_data_de_emprestimo = '" + strgEmp + "', tb02_emprestimo.tb02_cod_livro = '" + codlivro[codlivro.Length - 1] + "', tb02_emprestimo.tb02_ru = '" + codLeitorEdit + "' WHERE tb02_emprestimo.tb02_cod_emprestimo = " + linhaEditada;
+                }
+                else
+                {
+                    comb.sql = "UPDATE tb02_emprestimo SET tb02_emprestimo.tb02_data_de_devolucao_prevista = '" + strgDev + "', tb02_emprestimo.tb02_data_de_emprestimo = '" + strgEmp + "', tb02_emprestimo.tb02_ru = '" + codLeitorEdit + "' WHERE tb02_emprestimo.tb02_cod_emprestimo = " + linhaEditada;
+                }
                 comb.open();
 
                 MySqlDataReader dados = comb.Execsql();
 
                     MessageBox.Show("Linha editada!", "Tudo deu certo!",
               MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                 
                     comb.close();
                 
 
@@ -283,7 +350,7 @@ namespace BibliotecaEtec
         private void buscaTitulos()
         {
             conexao comb = new conexao();
-            comb.sql = "select tb01_titulo, tb01_cod_livro from tb01_livros where tb01_titulo like '%" + editTitulo.Text + "%' order by tb01_titulo limit 10";
+            comb.sql = "select tb01_titulo, tb01_cod_livro from tb01_livros where tb01_titulo like '%" + editTitulo.Text + "%' and tb01_disponibilidade = 'D' order by tb01_titulo limit 10";
 
             comb.open();
 
@@ -294,8 +361,8 @@ namespace BibliotecaEtec
 
                 while (dados.Read())
                 {
-                    editTitulo.Items.Add(dados["tb01_titulo"].ToString());
-                    codLivroEdit = dados["tb01_cod_livro"].ToString();
+                    editTitulo.Items.Add(dados["tb01_titulo"].ToString() + " id:" + dados["tb01_cod_livro"].ToString());
+                   
                 }
                 comb.close();
               
@@ -366,6 +433,12 @@ namespace BibliotecaEtec
             this.Hide();
             adiciona_emprestimo ae = new adiciona_emprestimo();
             ae.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            buscaPor();
         }
     }
 }

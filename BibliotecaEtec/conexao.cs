@@ -72,7 +72,7 @@ namespace BibliotecaEtec
             if (conecta.State == ConnectionState.Closed)
             {
                 conecta.ConnectionString =
-                 ("Server=localhost;Database=bibliotecaetec;User=root;Pwd=''");
+                 ("Server=robb0465.publiccloud.com.br;Database=data1_etec;User=data1_aluno;Pwd=etec@147!");
                 conecta.Open();
             }
         }

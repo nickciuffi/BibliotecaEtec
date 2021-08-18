@@ -48,7 +48,6 @@ namespace BibliotecaEtec
             this.Disponibilidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnEditar = new System.Windows.Forms.Panel();
             this.editEditora = new System.Windows.Forms.TextBox();
-            this.editDisp = new System.Windows.Forms.TextBox();
             this.editTitulo = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -58,6 +57,7 @@ namespace BibliotecaEtec
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.editDisp = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnEditar.SuspendLayout();
@@ -249,8 +249,8 @@ namespace BibliotecaEtec
             // pnEditar
             // 
             this.pnEditar.BackColor = System.Drawing.SystemColors.Control;
-            this.pnEditar.Controls.Add(this.editEditora);
             this.pnEditar.Controls.Add(this.editDisp);
+            this.pnEditar.Controls.Add(this.editEditora);
             this.pnEditar.Controls.Add(this.editTitulo);
             this.pnEditar.Controls.Add(this.button5);
             this.pnEditar.Controls.Add(this.button6);
@@ -273,14 +273,6 @@ namespace BibliotecaEtec
             this.editEditora.Name = "editEditora";
             this.editEditora.Size = new System.Drawing.Size(192, 26);
             this.editEditora.TabIndex = 19;
-            // 
-            // editDisp
-            // 
-            this.editDisp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editDisp.Location = new System.Drawing.Point(300, 154);
-            this.editDisp.Name = "editDisp";
-            this.editDisp.Size = new System.Drawing.Size(192, 26);
-            this.editDisp.TabIndex = 18;
             // 
             // editTitulo
             // 
@@ -380,6 +372,19 @@ namespace BibliotecaEtec
             this.label2.TabIndex = 0;
             this.label2.Text = "Editar registro";
             // 
+            // editDisp
+            // 
+            this.editDisp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.editDisp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.editDisp.FormattingEnabled = true;
+            this.editDisp.Items.AddRange(new object[] {
+            "Disponível",
+            "Indisponível"});
+            this.editDisp.Location = new System.Drawing.Point(300, 152);
+            this.editDisp.Name = "editDisp";
+            this.editDisp.Size = new System.Drawing.Size(193, 28);
+            this.editDisp.TabIndex = 20;
+            // 
             // busca_livros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -432,7 +437,7 @@ namespace BibliotecaEtec
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox editEditora;
-        private System.Windows.Forms.TextBox editDisp;
         private System.Windows.Forms.TextBox editTitulo;
+        private System.Windows.Forms.ComboBox editDisp;
     }
 }
